@@ -1,0 +1,36 @@
+﻿.menu-title{
+    color: white;
+    margin: 10px;
+    text-align: center;
+}
+.resistor-container{
+    text-align: center;
+    margin-top: 20px;
+}
+.input-container{
+    margin-top: 20px;
+    text-align: center;
+}
+.results-container{
+    margin-top: 20px;
+    font-size: 16px;
+}
+.color-area {
+    width: 20px;
+    height: 20px;
+    border: 1px solid darkgray;
+    display: inline-block;
+}
+.band-a {
+    visibility: hidden;
+}
+.band-b {
+    visibility: hidden;
+}
+.band-c {
+    visibility: hidden;
+}
+
+.band-d {
+    visibility: hidden;
+}

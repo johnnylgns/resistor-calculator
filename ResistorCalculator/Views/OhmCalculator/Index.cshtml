@@ -1,0 +1,121 @@
+﻿@model OhmCalculator.Models.CalculatorColors
+
+@{
+    ViewBag.Title = "Index";
+}
+@if (Model != null && Model.AColors != null && Model.BColors != null && Model.CColors != null && Model.DColors != null)
+{
+
+    <div class="resistor-container">
+        <div id="colorA" class="color-area band-a"></div>
+        <div id="colorB" class="color-area band-b"></div>
+        <div id="colorC" class="color-area band-c"></div>
+        <div id="colorD" class="color-area band-d"></div>
+    </div>
+
+    <div class="dropdown input-container">
+        <select name="bandAColor" id="bandAColor">
+            <option value="" disabled selected hidden>Band A</option>
+            @foreach (var color in Model.AColors)
+            {
+                <option value="@color">@color</option>
+            }
+        </select>
+        <select name="bandBColor" id="bandBColor">
+            <option value="" disabled selected hidden>Band B</option>
+            @foreach (var color in Model.BColors)
+            {
+                <option value="@color">@color</option>
+            }
+        </select>
+        <select name="bandCColor" id="bandCColor">
+            <option value="" disabled selected hidden>Band C</option>
+            @foreach (var color in Model.CColors)
+            {
+                <option value="@color">@color</option>
+            }
+        </select>
+        <select name="bandDColor" id="bandDColor">
+            <option value="" disabled selected hidden>Band D</option>
+            @foreach (var color in Model.DColors)
+            {
+                <option value="@color">@color</option>
+            }
+        </select>
+        <div class="results-container">
+            Resistance value:
+            <span id="result"></span>
+        </div>
+
+
+
+    </div>
+}
+
+
+
+@section Scripts
+{
+    <script type="text/javascript">
+
+        $(function () {
+            $(".dropdown").change(function () {
+                if ($("#bandAColor")[0].selectedIndex <= 0 || $("#bandBColor")[0].selectedIndex <= 0 || $("#bandCColor")[0].selectedIndex <= 0 || $("#bandDColor")[0].selectedIndex <= 0) {
+                    return;
+                }
+                $("#colorA").css("background", $("#bandAColor").val());
+                $("#colorB").css("background", $("#bandBColor").val());
+                $("#colorC").css("background", $("#bandCColor").val());
+                $("#colorD").css("background", $("#bandDColor").val());
+
+                var bandAColor = $("#bandAColor").val();
+                var bandBColor = $("#bandBColor").val();
+                var bandCColor = $("#bandCColor").val();
+                var bandDColor = $("#bandDColor").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "OhmCalculator/CalculateOhmValue",
+                    data: JSON.stringify({ bandAColor: bandAColor, bandBColor: bandBColor, bandCColor: bandCColor, bandDColor: bandDColor }),
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        console.log(data);
+                        $('#result').text(data);
+                    },
+                    error: function () {
+                        alert("Error while inserting data");
+                    }
+                });
+            });
+        });
+
+        $(function () {
+            $("#bandAColor").change(function () {
+                $("#colorA").css("background", $("#bandAColor").val());
+                $("#colorA").css("visibility", "visible");
+            });
+        });
+
+        $(function () {
+            $("#bandBColor").change(function () {
+                $("#colorB").css("background", $("#bandBColor").val());
+                $("#colorB").css("visibility", "visible");
+            });
+        });
+
+        $(function () {
+            $("#bandCColor").change(function () {
+                $("#colorC").css("background", $("#bandCColor").val());
+                $("#colorC").css("visibility", "visible");
+            });
+        });
+
+        $(function () {
+            $("#bandDColor").change(function () {
+                $("#colorD").css("background", $("#bandDColor").val());
+                $("#colorD").css("visibility", "visible");
+            });
+        });
+    </script>
+}  
