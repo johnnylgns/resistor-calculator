@@ -3,7 +3,7 @@
 This calculator find the resistance value based on a resistor's color coding. It is implemented as an MVC application. 
 
 
-##How to setup
+## How to setup
 
 
 Open command prompt 
